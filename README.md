@@ -149,3 +149,29 @@ _Add screenshots and a link to your demo video here._
 ## Disclaimer
 
 This project is a HIPAA-aware educational architecture prototype and is not a production-certified healthcare system. No real patient data is used. For demonstration purposes only.
+### Architecture Diagram
+
+```mermaid
+flowchart TD
+	A[Gradio Frontend] -->|REST API| B[API Gateway]
+	B --> C[Lambda Backend]
+	C -->|RAG Query| D[Bedrock Knowledge Base]
+	D -->|Docs| E[S3: Policy/Procedure Docs]
+	C -->|Guardrails| F[Bedrock Guardrails]
+	C -->|Session/Workflow State| G[DynamoDB]
+	C -->|Approval Workflow| H[Step Functions]
+	H --> G
+	C -->|Logs| I[CloudWatch]
+	C -->|IAM Roles| J[IAM]
+	subgraph AWS Cloud
+		B
+		C
+		D
+		E
+		F
+		G
+		H
+		I
+		J
+	end
+```
