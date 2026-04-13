@@ -9,7 +9,7 @@
 
 ## Checklist
 
-- [ ] Define and document the core use case:
+- [x] Define and document the core use case:
 	- “A clinical operations assistant that helps staff answer policy questions, summarize intake information, and route administrative actions through an approval workflow.”
 - [ ] Decide and create the repo structure:
 	- frontend/
