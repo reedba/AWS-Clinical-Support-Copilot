@@ -19,7 +19,6 @@ This skill enforces a disciplined, day-by-day build process using the Roadmap ch
 - Use this skill to guide daily standups, development, and reviews.
 - The agent should enforce this workflow when automating or assisting with project tasks.
 - Update this section if the roadmap process changes.
-name: aws-clinical-support-copilot
 
 # SKILL: AWS Clinical Support Copilot Project Patterns
 
@@ -70,8 +69,11 @@ This skill file defines best practices, conventions, and reusable patterns for b
 
 ---
 
+
 ## Documentation & Roadmap
 - Maintain a detailed README with architecture diagram, rationale, and security considerations.
+- Regularly review and update the README to ensure it accurately reflects current project goals, architecture, and compliance/security requirements.
+- Ensure README content is consistent with the Roadmap, SKILL.md, and actual implementation.
 - Use Markdown checklists for daily priorities and progress tracking in `Roadmap/`.
 - Document all prompt templates, API contracts, and workflow logic in `docs/`.
 

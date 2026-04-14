@@ -9,9 +9,9 @@
 
 ## Checklist
 
-- [ ] Define and document the core use case:
+- [x] Define and document the core use case:
 	- “A clinical operations assistant that helps staff answer policy questions, summarize intake information, and route administrative actions through an approval workflow.”
-- [ ] Decide and create the repo structure:
+- [x] Decide and create the repo structure:
 	- frontend/
 	- lambdas/
 	- infra/
@@ -23,9 +23,9 @@
 	- [ ] Project overview
 	- [ ] Problem statement
 	- [ ] Architecture notes
-	- [ ] Build checklist
+	- [x] Build checklist
 - [ ] Set up a task tracker (e.g., ROADMAP.md or GitHub Projects)
-- [ ] Confirm architecture choices (AWS services, Gradio, etc.)
+- [x] Confirm architecture choices (AWS services, Gradio, etc.)
 
 ---
 

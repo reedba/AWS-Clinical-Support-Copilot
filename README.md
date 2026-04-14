@@ -1,20 +1,35 @@
+
 # AI Clinical Support Copilot (HIPAA-Aware Architecture)
 
-## What is this project?
+## Project Overview
 
-**AI Clinical Support Copilot** is a regulated-industry-ready, AWS-native assistant for healthcare operations teams. It is designed to help staff answer policy questions, summarize intake information, and safely route sensitive administrative actions through approval workflows. The architecture is HIPAA-aware, prioritizing privacy, auditability, and security.
+The AI Clinical Support Copilot is designed to streamline healthcare operations by providing staff with an intelligent assistant that answers policy questions, summarizes intake information, and routes administrative actions through secure approval workflows. Built with AWS-native services and a HIPAA-aware architecture, the project demonstrates how AI can be safely integrated into regulated healthcare environments to improve efficiency, consistency, and auditability.
+
+## Problem Statement
+
+Healthcare operations teams face increasing administrative burdens, from answering complex policy questions to managing intake and routing sensitive actions for approval. Manual processes are time-consuming, error-prone, and can lead to inconsistent outcomes. There is a need for a secure, privacy-conscious assistant that can provide grounded answers, automate routine tasks, and ensure sensitive actions are handled with proper oversight—without risking patient privacy or regulatory compliance.
+
+## Architecture Notes
+
+- The solution uses AWS services to ensure scalability, security, and compliance.
+- Gradio provides a rapid prototyping frontend for staff interaction.
+- API Gateway and Lambda orchestrate chat, retrieval, and workflow logic.
+- Amazon Bedrock powers the AI layer, with Knowledge Base for RAG over policy documents and Guardrails for domain constraints.
+- S3 stores policy and procedure documents; DynamoDB manages session and workflow state.
+- Step Functions handle approval workflows, ensuring human-in-the-loop for sensitive actions.
+- CloudWatch and IAM provide observability and least-privilege security.
+- The architecture is designed to avoid unnecessary PHI storage and to log only metadata, supporting HIPAA principles.
 
 ---
 
+
 ## What it does
 
-A healthcare staff member can:
-
-- Ask questions about clinic policies and procedures
-- Get grounded answers from approved internal documents
-- Create intake summaries from structured patient input
-- Draft administrative follow-up actions
-- Send sensitive actions into an approval workflow
+- Answers clinic policy and procedure questions
+- Provides grounded responses from approved internal documents
+- Summarizes intake information from structured input
+- Drafts administrative follow-up actions
+- Routes sensitive actions into an approval workflow
 
 ## What it does **not** do
 
@@ -27,17 +42,16 @@ A healthcare staff member can:
 
 ---
 
+
 ## Core Use Case
 
 Build a clinical operations assistant for:
-
 - Front desk staff
 - Operations staff
 - Care coordinators
 - Intake/admin teams
 
-### Example Supported Tasks
-
+**Example Supported Tasks:**
 - “What forms are required for a new patient intake?”
 - “Summarize this intake note for staff review.”
 - “What is the follow-up process after discharge?”
@@ -45,6 +59,7 @@ Build a clinical operations assistant for:
 - “Start a prior-authorization follow-up request.”
 
 ---
+
 
 ## Architecture Overview
 
