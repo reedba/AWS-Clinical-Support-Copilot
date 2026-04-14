@@ -1,5 +1,3 @@
-
-
 ---
 name: aws-clinical-support-copilot
 description: Enforces daily roadmap discipline and project best practices for the AWS Clinical Support Copilot.
