@@ -9,14 +9,14 @@
 ## Checklist
 
 - [ ] Create 5–10 sample healthcare documents (PDF or Markdown):
-	- [ ] Patient intake policy
-	- [ ] Appointment scheduling SOP
-	- [ ] Callback escalation procedure
-	- [ ] Prior authorization workflow
-	- [ ] Discharge follow-up checklist
-	- [ ] Privacy and data handling policy
-	- [ ] Front desk triage guidance
-	- [ ] Referral coordination SOP
+	- [x] Patient intake policy
+	- [x] Appointment scheduling SOP
+	- [x] Callback escalation procedure
+	- [x] Prior authorization workflow
+	- [x] Discharge follow-up checklist
+	- [x] Privacy and data handling policy
+	- [x] Front desk triage guidance
+	- [x] Referral coordination SOP
 - [ ] Create sample structured input files (JSON):
 	- [ ] New patient intake form
 	- [ ] Callback request
