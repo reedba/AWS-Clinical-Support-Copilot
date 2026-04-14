@@ -1,0 +1,31 @@
+# .gitignore for AWS-Clinical-Support-Copilot
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+.venv/
+
+# Ignore macOS and Windows system files
+.DS_Store
+Thumbs.db
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore logs and temp files
+*.log
+tmp/
+*.tmp
+
+# Ignore SKILL.md
+SKILL.md
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore node_modules (if any JS/TS code)
+node_modules/

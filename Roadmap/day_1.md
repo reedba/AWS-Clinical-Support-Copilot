@@ -19,10 +19,10 @@
 	- prompts/
 	- samples/
 	- README.md
-- [ ] Write initial docs in docs/:
-	- [ ] Project overview
-	- [ ] Problem statement
-	- [ ] Architecture notes
+- [x] Write initial docs in docs/:
+	- [x] Project overview
+	- [x] Problem statement
+	- [x] Architecture notes
 	- [x] Build checklist
 - [ ] Set up a task tracker (e.g., ROADMAP.md or GitHub Projects)
 - [x] Confirm architecture choices (AWS services, Gradio, etc.)
