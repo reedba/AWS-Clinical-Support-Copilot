@@ -1,0 +1,10 @@
+{
+  "followup_id": "FU20260414-001",
+  "patient_id": "P123456",
+  "patient_name": "Jane Doe",
+  "followup_type": "Post-discharge",
+  "scheduled_date": "2026-04-21T10:00:00Z",
+  "provider": "Dr. Smith",
+  "notes": "Check wound healing and review medications.",
+  "status": "Scheduled"
+}

@@ -8,7 +8,7 @@
 
 ## Checklist
 
-- [ ] Create 5–10 sample healthcare documents (PDF or Markdown):
+- [x] Create 5–10 sample healthcare documents (PDF or Markdown):
 	- [x] Patient intake policy
 	- [x] Appointment scheduling SOP
 	- [x] Callback escalation procedure
@@ -17,13 +17,13 @@
 	- [x] Privacy and data handling policy
 	- [x] Front desk triage guidance
 	- [x] Referral coordination SOP
-- [ ] Create sample structured input files (JSON):
-	- [ ] New patient intake form
-	- [ ] Callback request
-	- [ ] Follow-up request
-- [ ] Use only fake patient/admin data
-- [ ] Store all documents and samples in the `samples/` folder
-- [ ] Add example prompts for each document type
+- [x] Create sample structured input files (JSON):
+	- [x] New patient intake form
+	- [x] Callback request
+	- [x] Follow-up request
+- [x] Use only fake patient/admin data
+- [x] Store all documents and samples in the `samples/` folder
+- [x] Add example prompts for each document type
 
 ---
 

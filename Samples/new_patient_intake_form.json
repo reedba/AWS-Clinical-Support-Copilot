@@ -1,0 +1,25 @@
+{
+  "patient_id": "P123456",
+  "first_name": "Jane",
+  "last_name": "Doe",
+  "date_of_birth": "1985-07-15",
+  "gender": "Female",
+  "address": {
+    "street": "123 Main St",
+    "city": "Sampletown",
+    "state": "CA",
+    "zip": "90001"
+  },
+  "phone": "555-123-4567",
+  "email": "jane.doe@example.com",
+  "insurance": {
+    "provider": "Sample Health Insurance",
+    "policy_number": "SHI-987654321"
+  },
+  "emergency_contact": {
+    "name": "John Doe",
+    "relationship": "Spouse",
+    "phone": "555-987-6543"
+  },
+  "primary_care_provider": "Dr. Smith"
+}
