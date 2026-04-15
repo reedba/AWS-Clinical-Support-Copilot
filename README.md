@@ -85,6 +85,7 @@ Build a clinical operations assistant for:
 ### Observability/Security
 - CloudWatch (logging, monitoring)
 - IAM (least-privilege access)
+- IAM roles implemented for limited access to AWS resources
 
 ---
 
@@ -109,6 +110,25 @@ Build a clinical operations assistant for:
 12. Add HIPAA-aware design decisions and documentation
 13. Polish README, add architecture diagram, screenshots, and rationale
 14. Record demo video and create LinkedIn content
+
+---
+
+## Build Progress
+
+### ✅ Completed
+- **Day 1-2:** Architecture and project planning
+- **Day 3:** S3 bucket setup, healthcare documents uploaded, Bedrock Knowledge Base configured
+  - S3 bucket created with encryption and versioning (`my-hipaa-copilot-docs-brandonreed-2026`)
+  - 9 sample healthcare documents uploaded (policies, procedures, intake forms, checklists)
+  - Bedrock Knowledge Base (ID: HHLBESSDCF) successfully configured and synced
+  - RAG retrieval validated with sample queries:
+    - ✓ "What documents are required for a new patient?" → Returns accurate intake requirements
+    - ✓ "What is the callback escalation workflow?" → Returns detailed escalation procedure
+    - ✓ "What should staff do after discharge follow-up is missed?" → Returns proper escalation steps
+  - All answers grounded in source documents with proper citations
+
+### 🔄 Next Steps
+- **Day 4+:** Lambda backend, API Gateway, DynamoDB, Gradio UI, Bedrock Guardrails, Step Functions
 
 ---
 
