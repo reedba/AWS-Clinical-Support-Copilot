@@ -171,14 +171,14 @@ Build a clinical operations assistant for:
 | **Bedrock Guardrails** | AI/Machine Learning | Domain constraints and safety guardrails |
 | **CloudWatch** | Monitoring | Logging, monitoring, and auditability |
 
-### ❌ Not Currently Using (Out of Scope)
-| Service | Category | Reason |
-|---------|----------|--------|
-| **EC2** | Compute | Fully serverless architecture (Lambda handles all compute) |
-| **VPC** | Networking | Default AWS infrastructure sufficient for current scope |
-| **RDS** | Database | DynamoDB provides better fit for session state and workflow metadata |
-| **CloudFront** | Content Delivery | Not needed for single-region deployment; Gradio served directly |
-| **Route 53** | DNS | No custom domain required for MVP phase |
+### 🧭 Planned Integrations (Phase 3)
+| Service | Category | Planned Use | Trigger/Dependency |
+|---------|----------|-------------|-------------------|
+| **EC2** | Compute | Host long-running tasks or model adapters if Lambda limits are hit | Only if workloads exceed Lambda constraints |
+| **VPC** | Networking | Private subnets, VPC endpoints, and tighter network isolation | Required for regulated connectivity or private data sources |
+| **RDS** | Database | Relational audit logs, reporting, and analytics | Introduced if relational queries become a requirement |
+| **CloudFront** | Content Delivery | Global distribution for UI and static assets | Added when multi-region latency becomes a concern |
+| **Route 53** | DNS | Custom domain management for production deployments | Added when a public domain is required |
 
 ### 📋 Core Technology Layers Covered
 - ✅ **Networking:** API Gateway, networking via AWS services
@@ -186,12 +186,9 @@ Build a clinical operations assistant for:
 - ✅ **Virtualization:** Implicit in serverless compute
 - ✅ **Databases:** DynamoDB for state; Bedrock Knowledge Base for document retrieval
 
-### 🚀 Future Enhancement Opportunities
-- **VPC:** If requiring isolated network infrastructure or on-premise connectivity
-- **RDS:** If analytical queries or complex relational data queries become needed
-- **CloudFront:** If UI needs global distribution with low latency
-- **Route 53:** If registering custom domain for production deployment
-- **EC2:** Only if workloads exceed Lambda's capabilities or require persistent connections
+### 🚀 Integration Notes
+- These services are intentionally deferred until the MVP and agentic orchestration layer are validated.
+- The roadmap will be updated once Phase 3 work is scheduled and scoped.
 
 ---
 
