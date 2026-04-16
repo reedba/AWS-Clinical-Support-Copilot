@@ -126,9 +126,14 @@ Build a clinical operations assistant for:
     - ✓ "What is the callback escalation workflow?" → Returns detailed escalation procedure
     - ✓ "What should staff do after discharge follow-up is missed?" → Returns proper escalation steps
   - All answers grounded in source documents with proper citations
+- **Day 4:** Lambda backend for chat and retrieval orchestration completed
+	- Lambda integrates with Bedrock Knowledge Base via `retrieve()`
+	- Supports policy answers and structured admin summaries
+	- Structured JSON responses with sources and confidence notes
+	- CloudWatch logging enabled for observability
 
 ### 🔄 Next Steps
-- **Day 4+:** Lambda backend, API Gateway, DynamoDB, Gradio UI, Bedrock Guardrails, Step Functions
+- **Day 5+:** API Gateway, DynamoDB, Gradio UI, Bedrock Guardrails, Step Functions
 
 ---
 
@@ -229,6 +234,7 @@ flowchart TD
 	B --> C[Lambda Backend]
 	C -->|RAG Query| D[Bedrock Knowledge Base]
 	D -->|Docs| E[S3: Policy/Procedure Docs]
+	C -->|LLM Invoke| K[Amazon Bedrock LLM]
 	C -->|Guardrails| F[Bedrock Guardrails]
 	C -->|Session/Workflow State| G[DynamoDB]
 	C -->|Approval Workflow| H[Step Functions]
@@ -240,6 +246,7 @@ flowchart TD
 		C
 		D
 		E
+		K
 		F
 		G
 		H
