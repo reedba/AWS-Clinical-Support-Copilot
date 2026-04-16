@@ -155,6 +155,46 @@ Build a clinical operations assistant for:
 
 ---
 
+## AWS Service Coverage Analysis
+
+### ✅ Currently Leveraging
+| Service | Category | Usage |
+|---------|----------|-------|
+| **Lambda** | Compute & Orchestration | Serverless backend orchestration |
+| **Step Functions** | Compute & Orchestration | Approval workflows |
+| **S3** | Storage | Policy/procedure document storage |
+| **DynamoDB** | Database | Session and workflow state management |
+| **API Gateway** | Networking & Traffic | REST endpoint for frontend communication |
+| **IAM** | Security & Access | Least-privilege roles and access control |
+| **Amazon Bedrock** | AI/Machine Learning | Foundation models for chat and reasoning |
+| **Bedrock Knowledge Base** | AI/Machine Learning | RAG (Retrieval-Augmented Generation) over policy docs |
+| **Bedrock Guardrails** | AI/Machine Learning | Domain constraints and safety guardrails |
+| **CloudWatch** | Monitoring | Logging, monitoring, and auditability |
+
+### ❌ Not Currently Using (Out of Scope)
+| Service | Category | Reason |
+|---------|----------|--------|
+| **EC2** | Compute | Fully serverless architecture (Lambda handles all compute) |
+| **VPC** | Networking | Default AWS infrastructure sufficient for current scope |
+| **RDS** | Database | DynamoDB provides better fit for session state and workflow metadata |
+| **CloudFront** | Content Delivery | Not needed for single-region deployment; Gradio served directly |
+| **Route 53** | DNS | No custom domain required for MVP phase |
+
+### 📋 Core Technology Layers Covered
+- ✅ **Networking:** API Gateway, networking via AWS services
+- ✅ **Operating Systems:** Abstracted by Lambda and managed services
+- ✅ **Virtualization:** Implicit in serverless compute
+- ✅ **Databases:** DynamoDB for state; Bedrock Knowledge Base for document retrieval
+
+### 🚀 Future Enhancement Opportunities
+- **VPC:** If requiring isolated network infrastructure or on-premise connectivity
+- **RDS:** If analytical queries or complex relational data queries become needed
+- **CloudFront:** If UI needs global distribution with low latency
+- **Route 53:** If registering custom domain for production deployment
+- **EC2:** Only if workloads exceed Lambda's capabilities or require persistent connections
+
+---
+
 ## Security Considerations
 
 - Least-privilege IAM roles
