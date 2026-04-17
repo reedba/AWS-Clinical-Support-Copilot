@@ -89,6 +89,26 @@ Build a clinical operations assistant for:
 
 ---
 
+## Frontend Setup (Gradio)
+
+Run the UI in an isolated virtual environment to avoid dependency conflicts.
+
+```powershell
+cd C:\Users\brand\OneDrive\Desktop\AWS-Projects\AWS-Clinical-Support-Copilot
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r frontend\requirements.txt
+python frontend\app.py
+```
+
+If you need to point at a different API Gateway stage, set:
+
+```powershell
+$env:API_BASE_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/dev"
+```
+
+---
+
 ## 2-Week Build Plan
 
 ### Week 1: Build the MVP

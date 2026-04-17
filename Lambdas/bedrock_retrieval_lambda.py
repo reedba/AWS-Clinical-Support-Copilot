@@ -1,6 +1,7 @@
 import boto3
 import json
 import logging
+import os
 
 """
 LAMBDA FUNCTION OVERVIEW
@@ -31,12 +32,93 @@ All requests are logged to CloudWatch for observability and compliance.
 # logger: Captures all function events for CloudWatch monitoring
 
 bedrock_client = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
+bedrock_runtime = boto3.client('bedrock-runtime', region_name='us-east-1')
 
 # Knowledge Base configuration
 KNOWLEDGE_BASE_ID = 'SA1GTRJROV'
+MODEL_ID = os.getenv('BEDROCK_MODEL_ID', 'amazon.titan-text-express-v1')
+MAX_CONTEXT_CHARS = 3000
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+def build_context(results):
+    chunks = []
+    for result in results:
+        text = result.get('content', {}).get('text', '')
+        if text:
+            chunks.append(text.strip())
+    context = "\n\n".join(chunks)
+    return context[:MAX_CONTEXT_CHARS]
+
+
+def call_bedrock_summary(prompt, context_text, request_type):
+    if request_type == 'admin_summary':
+        instruction = (
+            "Summarize the context for front desk staff in 4-6 bullet points. "
+            "Each bullet must start with '- '. "
+            "Use only the provided context. If the answer is not in context, say so."
+        )
+    else:
+        instruction = (
+            "Answer the user question using only the provided context. "
+            "Be concise and policy-focused. Limit to 6 sentences max. "
+            "If the answer is not in context, say so."
+        )
+
+    user_text = (
+        f"User question:\n{prompt}\n\n"
+        f"Context:\n{context_text}\n\n"
+        f"Instruction:\n{instruction}\n"
+    )
+
+    if MODEL_ID.startswith('anthropic.'):
+        response = bedrock_runtime.invoke_model(
+            modelId=MODEL_ID,
+            contentType='application/json',
+            accept='application/json',
+            body=json.dumps(
+                {
+                    "anthropic_version": "bedrock-2023-05-31",
+                    "max_tokens": 300,
+                    "temperature": 0.2,
+                    "messages": [
+                        {"role": "user", "content": [{"type": "text", "text": user_text}]}
+                    ],
+                }
+            ),
+        )
+
+        raw_body = response.get('body')
+        model_payload = json.loads(raw_body.read()) if hasattr(raw_body, 'read') else json.loads(raw_body)
+        content = model_payload.get('content', [])
+        if content and isinstance(content, list):
+            return "".join([item.get('text', '') for item in content]).strip()
+        return ""
+
+    response = bedrock_runtime.invoke_model(
+        modelId=MODEL_ID,
+        contentType='application/json',
+        accept='application/json',
+        body=json.dumps(
+            {
+                "inputText": user_text,
+                "textGenerationConfig": {
+                    "maxTokenCount": 300,
+                    "temperature": 0.2,
+                    "topP": 0.9,
+                },
+            }
+        ),
+    )
+
+    raw_body = response.get('body')
+    model_payload = json.loads(raw_body.read()) if hasattr(raw_body, 'read') else json.loads(raw_body)
+    results = model_payload.get('results', [])
+    if results and isinstance(results, list):
+        return results[0].get('outputText', '').strip()
+    return ""
+
 
 def lambda_handler(event, context):
     """
@@ -77,7 +159,7 @@ def lambda_handler(event, context):
             knowledgeBaseId=KNOWLEDGE_BASE_ID,
             retrievalConfiguration={
                 'vectorSearchConfiguration': {
-                    'numberOfResults': 5
+                    'numberOfResults': 3
                 }
             },
             retrievalQuery={'text': prompt}
@@ -91,14 +173,20 @@ def lambda_handler(event, context):
         sources = []
         
         if results:
-            # Combine all retrieved document snippets into one cohesive answer
-            answer = ' '.join([result['content']['text'] for result in results])
+            # Combine all retrieved document snippets into one context block
+            context_text = build_context(results)
             # Extract source filenames from metadata (which documents were used)
             # Use set() to remove duplicate sources
             sources = list(set([
                 result['metadata'].get('source', result['metadata'].get('filename', 'Unknown'))
                 for result in results if 'metadata' in result
             ]))
+
+            try:
+                answer = call_bedrock_summary(prompt, context_text, request_type)
+            except Exception as summary_error:
+                logger.error(f"Summary generation failed: {summary_error}")
+                answer = context_text
         else:
             # If no results, provide clear feedback
             answer = "No relevant documents found for your query."
@@ -110,14 +198,14 @@ def lambda_handler(event, context):
         if request_type == 'admin_summary':
             structured_response = {
                 'response_type': 'admin_summary',
-                'summary': answer[:500],  # Truncate to 500 chars for quick consumption
+                'summary': answer,
                 'sources': sources,
                 'confidence_note': 'Grounded in internal policy documents.'
             }
         else:  # policy_answer (default)
             structured_response = {
                 'response_type': 'policy_answer',
-                'answer': answer,  # Full untruncated answer
+                'answer': answer,
                 'sources': sources,
                 'confidence_note': 'Grounded in internal policy documents.'
             }
