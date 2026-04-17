@@ -112,15 +112,15 @@ $env:API_BASE_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/dev
 ## 2-Week Build Plan
 
 ### Week 1: Build the MVP
-1. Define use case, repo structure, and architecture
-2. Prepare realistic healthcare documents and sample data (fake only)
-3. Set up S3 + Bedrock Knowledge Base
-4. Build Lambda for chat and retrieval orchestration
-5. Add API Gateway endpoint
-6. Build Gradio UI
-7. Add DynamoDB for sessions and intake summaries
+1. ✅ Define use case, repo structure, and architecture
+2. ✅ Prepare realistic healthcare documents and sample data (fake only)
+3. ✅ Set up S3 + Bedrock Knowledge Base
+4. ✅ Build Lambda for chat and retrieval orchestration
+5. ✅ Add API Gateway endpoint
+6. ✅ Build Gradio UI
+7. ⏳ Add DynamoDB for sessions and intake summaries
 
-**Milestone:** End-to-end MVP with Gradio frontend, API Gateway, Lambda backend, Bedrock Knowledge Base, S3, and DynamoDB.
+**Milestone:** End-to-end MVP with Gradio frontend and API Gateway/Lambda backend complete; DynamoDB session storage in progress.
 
 ### Week 2: Regulated-Industry Features
 8. Add Bedrock Guardrails (no diagnosis/treatment, admin-only)
@@ -151,9 +151,15 @@ $env:API_BASE_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/dev
 	- Supports policy answers and structured admin summaries
 	- Structured JSON responses with sources and confidence notes
 	- CloudWatch logging enabled for observability
+- **Day 5:** API Gateway /chat endpoint and backend contract completed
+	- HTTP API with POST /chat wired to Lambda
+	- Request/response formats documented and validated
+- **Day 6:** Gradio UI integrated with backend completed
+	- Chat UI connected to API Gateway
+	- Responses and sources rendered in UI
 
 ### 🔄 Next Steps
-- **Day 5+:** API Gateway, DynamoDB, Gradio UI, Bedrock Guardrails, Step Functions
+- **Day 7+:** DynamoDB, Bedrock Guardrails, Step Functions
 
 ---
 

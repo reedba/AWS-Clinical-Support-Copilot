@@ -8,6 +8,7 @@
 
 ## Checklist
 
+- [ ] Add optional intake form tab (moved from Day 6)
 - [ ] Create DynamoDB tables (or one-table design) for:
 	- [ ] Sessions
 	- [ ] Intake summaries

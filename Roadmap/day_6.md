@@ -12,7 +12,6 @@
 - [x] Implement chat box for user questions
 - [x] Connect Gradio to API Gateway /chat endpoint
 - [x] Display response output and source documents (if available)
-- [ ] Add optional intake form tab (if time permits)
 - [x] Test end-to-end flow from UI to backend
 - [x] Keep styling minimal (focus on function)
 
