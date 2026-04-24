@@ -245,7 +245,7 @@ $env:API_BASE_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/dev
 
 ## Demo & Screenshots
 
-Demo video: https://www.loom.com/share/e8d930328f1946938febb62f711842f5
+Demo video: https://www.loom.com/share/d50280f1db11411cb6c25fc9fcd4b72c
 
 _Add screenshots here._
 
