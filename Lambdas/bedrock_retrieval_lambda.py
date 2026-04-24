@@ -36,8 +36,15 @@ bedrock_runtime = boto3.client('bedrock-runtime', region_name='us-east-1')
 
 # Knowledge Base configuration
 KNOWLEDGE_BASE_ID = 'SA1GTRJROV'
-MODEL_ID = os.getenv('BEDROCK_MODEL_ID', 'amazon.titan-text-express-v1')
+MODEL_ID = os.getenv('BEDROCK_MODEL_ID', 'anthropic.claude-3-haiku-20240307-v1:0')
 MAX_CONTEXT_CHARS = 3000
+ALLOW_RAW_FALLBACK = os.getenv('ALLOW_RAW_FALLBACK', 'false').lower() == 'true'
+SYSTEM_PROMPT = (
+    "You are a clinical operations policy assistant. "
+    "Summarize and answer based only on the provided context. "
+    "Do not copy large passages verbatim. "
+    "If the answer is not in the context, say so."
+)
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -50,6 +57,19 @@ def build_context(results):
             chunks.append(text.strip())
     context = "\n\n".join(chunks)
     return context[:MAX_CONTEXT_CHARS]
+
+
+def extract_source(result):
+    metadata = result.get('metadata', {}) or {}
+    source = metadata.get('source') or metadata.get('filename')
+    if source:
+        return source
+    location = result.get('location', {}) or {}
+    s3_location = location.get('s3Location', {}) or {}
+    uri = s3_location.get('uri')
+    if uri:
+        return uri.split('/')[-1]
+    return 'Unknown'
 
 
 def call_bedrock_summary(prompt, context_text, request_type):
@@ -67,6 +87,7 @@ def call_bedrock_summary(prompt, context_text, request_type):
         )
 
     user_text = (
+        f"System:\n{SYSTEM_PROMPT}\n\n"
         f"User question:\n{prompt}\n\n"
         f"Context:\n{context_text}\n\n"
         f"Instruction:\n{instruction}\n"
@@ -80,6 +101,7 @@ def call_bedrock_summary(prompt, context_text, request_type):
             body=json.dumps(
                 {
                     "anthropic_version": "bedrock-2023-05-31",
+                    "system": SYSTEM_PROMPT,
                     "max_tokens": 300,
                     "temperature": 0.2,
                     "messages": [
@@ -177,16 +199,19 @@ def lambda_handler(event, context):
             context_text = build_context(results)
             # Extract source filenames from metadata (which documents were used)
             # Use set() to remove duplicate sources
-            sources = list(set([
-                result['metadata'].get('source', result['metadata'].get('filename', 'Unknown'))
-                for result in results if 'metadata' in result
-            ]))
+            sources = list({extract_source(result) for result in results})
 
             try:
                 answer = call_bedrock_summary(prompt, context_text, request_type)
             except Exception as summary_error:
-                logger.error(f"Summary generation failed: {summary_error}")
-                answer = context_text
+                logger.exception("Summary generation failed.")
+                if ALLOW_RAW_FALLBACK:
+                    answer = context_text
+                else:
+                    answer = (
+                        "Summary generation failed. Please try again later or "
+                        "check Lambda logs for details."
+                    )
         else:
             # If no results, provide clear feedback
             answer = "No relevant documents found for your query."
