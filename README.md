@@ -1,6 +1,8 @@
 
 # AI Clinical Support Copilot (HIPAA-Aware Architecture)
 
+Demo video: https://www.loom.com/share/d50280f1db11411cb6c25fc9fcd4b72c
+
 ## Project Overview
 
 The AI Clinical Support Copilot is designed to streamline healthcare operations by providing staff with an intelligent assistant that answers policy questions, summarizes intake information, and routes administrative actions through secure approval workflows. Built with AWS-native services and a HIPAA-aware architecture, the project demonstrates how AI can be safely integrated into regulated healthcare environments to improve efficiency, consistency, and auditability.
@@ -244,8 +246,6 @@ $env:API_BASE_URL = "https://your-api-id.execute-api.us-east-1.amazonaws.com/dev
 ---
 
 ## Demo & Screenshots
-
-Demo video: https://www.loom.com/share/d50280f1db11411cb6c25fc9fcd4b72c
 
 _Add screenshots here._
 
