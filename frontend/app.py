@@ -7,7 +7,7 @@ import requests
 
 API_BASE_URL = os.getenv(
 	"API_BASE_URL",
-	"https://ymoxmockwe.execute-api.us-east-1.amazonaws.com/dev",
+	"https://t6grjk401i.execute-api.us-east-1.amazonaws.com/dev",
 )
 CHAT_URL = f"{API_BASE_URL.rstrip('/')}/chat"
 
